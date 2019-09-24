@@ -48,13 +48,13 @@ git commit -m "initial commit"
 
 
 # Enable Github Pages hosting for master branch
-curl -u ${USER}:${APIKEY} https://api.github.com/repos/${USER}/${REPONAME}/pages --header "Accept: application/vnd.github.switcheroo-preview+json" -d "{\"source\": {\"branch\": \"master\"}}"
 
 # create and checkout dev branch
 git checkout -b dev
 git push origin --all
 git branch --set-upstream-to=origin/dev dev
 git branch --set-upstream-to=origin/master master
+curl -u ${USER}:${APIKEY} https://api.github.com/repos/${USER}/${REPONAME}/pages --header "Accept: application/vnd.github.switcheroo-preview+json" -d "{\"source\": {\"branch\": \"master\"}}"
 # ORIGINAL CODE
 # # Set the freshly created repo to the origin and push
 # # You'll need to have added your public key to your github account
