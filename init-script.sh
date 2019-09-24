@@ -15,7 +15,7 @@ APIKEY=$(cat api_key)
 
 # ------------ ATTN: CONFIGURATION REQUIRED ------------
 # Replace my username with your own
-USER=wildercat
+USER=Wildercat
 
 # Get user input
 echo "New directory/repo name:"
@@ -39,19 +39,22 @@ mkdir ~/dev/${REPONAME}
 cd ~/dev/${REPONAME}
 git init
 # Add new repo as remote
-git remote add origin https://github.com/${USER:-${GITHUBUSER}}/${REPONAME}.git
+# git remote add origin https://github.com/${USER:-${GITHUBUSER}}/${REPONAME}.git
+git remote add origin git@github.com:${USER:-${GITHUBUSER}}/${REPONAME}.git
 # make a readme and push it to master
 echo "# init" >> README.md
 git add README.md
 git commit -m "initial commit"
 git push origin master
+git branch --set-upstream-to=origin/master master
 
 # Enable Github Pages hosting for master branch
 curl -u ${USER}:${APIKEY} https://api.github.com/repos/${USER}/${REPONAME}/pages --header "Accept: application/vnd.github.switcheroo-preview+json" -d "{\"source\": {\"branch\": \"master\"}}"
 
 # create and checkout dev branch
 git checkout -b dev
-
+git push origin dev
+git branch --set-upstream-to=origin/master master
 # ORIGINAL CODE
 # # Set the freshly created repo to the origin and push
 # # You'll need to have added your public key to your github account
