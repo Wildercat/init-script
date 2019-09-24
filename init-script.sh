@@ -45,15 +45,15 @@ git remote add origin git@github.com:${USER:-${GITHUBUSER}}/${REPONAME}.git
 echo "# init" >> README.md
 git add README.md
 git commit -m "initial commit"
-git push origin master
-git branch --set-upstream-to=origin/master master
+
 
 # Enable Github Pages hosting for master branch
 curl -u ${USER}:${APIKEY} https://api.github.com/repos/${USER}/${REPONAME}/pages --header "Accept: application/vnd.github.switcheroo-preview+json" -d "{\"source\": {\"branch\": \"master\"}}"
 
 # create and checkout dev branch
 git checkout -b dev
-git push origin dev
+git push origin --all
+git branch --set-upstream-to=origin/dev dev
 git branch --set-upstream-to=origin/master master
 # ORIGINAL CODE
 # # Set the freshly created repo to the origin and push
